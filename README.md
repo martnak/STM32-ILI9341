@@ -45,17 +45,17 @@ Settings:
   320x240 = 76800 pixels, each pixel contains 16bit colour information (2x8)
   Theoretical Max FPS: 1/((320x240x16)/50000000)
 
-With ART Accelerator, instruction prefetch, CPI ICACHE and CPU DCACHE enabled:
+With ART Accelerator, instruction prefetch, CPU ICACHE and CPU DCACHE enabled:
 
  - FPS:							39.62
  - SPI utilization:					97.37%
  - MB/Second:						6.09
 
-With ART Accelerator, instruction prefetch, CPI ICACHE and CPU DCACHE disabled:
+With ART Accelerator, instruction prefetch, CPU ICACHE and CPU DCACHE disabled:
 
  - FPS:							35.45
  - SPI utilization:					87.12%
  - MB/Second:						5.44
 
-ART Accelerator, instruction prefetch, CPI ICACHE and CPU DCACHE settings found in MXCUBE under "System-> CORTEX M7 button"
+ART Accelerator, instruction prefetch, CPU ICACHE and CPU DCACHE settings found in MXCUBE under "System-> CORTEX M7 button"
 
