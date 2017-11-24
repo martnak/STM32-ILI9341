@@ -55,3 +55,4 @@ Downloading project and setting up example based on STM32F7:
 //	-MB/Second:						5.44
 //	
 //	ART Accelerator, instruction prefetch, CPI ICACHE and CPU DCACHE settings found in MXCUBE under "System-> CORTEX M7 button"
+
