@@ -14,7 +14,7 @@ Contains:
     - Example usage of functions
 
 Downloading project and setting up example based on STM32F7:
-  - Extract the project into a folder and rune CubeMX project
+  - Extract the project into a folder and run CubeMX project
   - Generate code using CubeMX
   - Add ILI9341 folder to flash->configure flash tools->C/C++ ->Include paths
   - Add files in ILI9341 folder to project (Add existing files to group...)
