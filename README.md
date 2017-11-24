@@ -41,8 +41,9 @@ Settings:
   - Redraw entire screen
 
   Theoretical maximum FPS with 50Mhz SPI calculated to be 40.69 FPS
-  320*240 = 76800 pixels, each pixel contains 16bit colour information (2x8)
-  Theoretical Max FPS: 1/((320*240*16)/50000000)
+  
+  320x240 = 76800 pixels, each pixel contains 16bit colour information (2x8)
+  Theoretical Max FPS: 1/((320x240x16)/50000000)
 
 With ART Accelerator, instruction prefetch, CPI ICACHE and CPU DCACHE enabled:
 
