@@ -86,6 +86,8 @@ if(TP_Touchpad_Pressed())
 	#include "stm32f4xx_hal.h"
 #elif defined(STM32F103xB)
 	#include "stm32f1xx_hal.h"
+#elif define(STM32F746xx)
+	#include "stm32f7xx_hal.h"
 #else
 	#error "Please select first the target STM32Fxxx device used in your application (in stm32fxxx.h file)"
 #endif
