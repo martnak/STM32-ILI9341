@@ -293,7 +293,7 @@ void demoFilledCircles() {
     ILI9341_Draw_Text("Filled Circles", 10, 20, BLACK, 1, WHITE);
     HAL_Delay(2000);
     ILI9341_Fill_Screen(WHITE);
-
+    uint32_t t = HAL_GetTick();
     for (uint32_t i = 0; i < 1000; i++) {
         uint32_t random_num = 0;
         uint16_t xr = 0;
@@ -315,6 +315,10 @@ void demoFilledCircles() {
         //ili9341_drawpixel(xr, yr, WHITE);
         ILI9341_Draw_Filled_Circle(xr, yr, radiusr / 2, colourr);
     }
+    char buf[100];
+    snprintf(buf, 99, "CircPS: %.2f", 1000.0 / ((HAL_GetTick() - t) / 1000.0));
+    ILI9341_Draw_Text(buf, 2, 2, YELLOW, 3, DARKCYAN);
+    HAL_Delay(10000);
     HAL_Delay(1000);
 }
 

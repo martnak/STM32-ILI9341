@@ -87,8 +87,7 @@ void ILI9341_Draw_Hollow_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_
 /*Draw filled circle at X,Y location with specified radius and colour. X and Y represent circles center */
 void ILI9341_Draw_Filled_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_t Colour)
 {
-	
-		int x = Radius;
+	int x = Radius;
     int y = 0;
     int xChange = 1 - (Radius << 1u);
     int yChange = 0;
@@ -96,29 +95,22 @@ void ILI9341_Draw_Filled_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_
 
     while (x >= y)
     {
-        for (int i = X - x; i <= X + x; i++)
-        {
-            ILI9341_Draw_Pixel(i, Y + y,Colour);
-            ILI9341_Draw_Pixel(i, Y - y,Colour);
-        }
-        for (int i = X - y; i <= X + y; i++)
-        {
-            ILI9341_Draw_Pixel(i, Y + x,Colour);
-            ILI9341_Draw_Pixel(i, Y - x,Colour);
-        }
-
+        ILI9341_Draw_Horizontal_Line(X - x, Y + y, 2 * x, Colour);
+        ILI9341_Draw_Horizontal_Line(X - x, Y - y, 2 * x, Colour);
+        ILI9341_Draw_Horizontal_Line(X - y, Y + x, 2 * y, Colour);
+        ILI9341_Draw_Horizontal_Line(X - y, Y - x, 2 * y, Colour);
         y++;
         radiusError += yChange;
         yChange += 2;
-        if (((radiusError * 2) + xChange) > 0)
+        if ((radiusError * 2 + xChange) > 0)
         {
             x--;
             radiusError += xChange;
             xChange += 2;
         }
     }
-		//Really slow implementation, will require future overhaul
-		//TODO:	https://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles	
+
+		//TODO: check if 	https://stackoverflow.com/questions/1201200/fast-algorithm-for-drawing-filled-circles is faster
 }
 
 /*Draw a hollow rectangle between positions X0,Y0 and X1,Y1 with specified colour*/
