@@ -40,7 +40,7 @@ file(GLOB_RECURSE SOURCES "Startup/*.*" "Core/*.*" "Drivers/*.*" "../Src/*.*")
 
 include_directories(Drivers/STM32L4xx_HAL_Driver/Inc Drivers/STM32L4xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Include Drivers/CMSIS/Device/ST/STM32L4xx/Include Core/Inc ../Src)
 
-add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT} )
+add_executable(${PROJECT_NAME}.elf ${SOURCES} SRC/sysmem.c ${LINKER_SCRIPT} )
 
 set(CMAKE_EXE_LINKER_FLAGS
     "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map")

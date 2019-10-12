@@ -40,7 +40,7 @@ file(GLOB_RECURSE SOURCES ${sources} "../Src/*.*")
 
 include_directories(${includes} ../Src)
 
-add_executable($${PROJECT_NAME}.elf $${SOURCES} $${LINKER_SCRIPT} )
+add_executable($${PROJECT_NAME}.elf $${SOURCES} SRC/sysmem.c $${LINKER_SCRIPT} )
 
 set(CMAKE_EXE_LINKER_FLAGS
     "$${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=$${PROJECT_BINARY_DIR}/$${PROJECT_NAME}.map")
