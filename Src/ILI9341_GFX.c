@@ -267,86 +267,32 @@ void ILI9341_Draw_Image(const char* Image_Array, uint8_t Orientation)
 	{
 		ILI9341_Set_Rotation(SCREEN_HORIZONTAL_1);
 		ILI9341_Set_Address(0,0,ILI9341_SCREEN_WIDTH,ILI9341_SCREEN_HEIGHT);
-			
-		HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-		
-		unsigned char Temp_small_buffer[BURST_MAX_SIZE];
-		uint32_t counter = 0;
-		for(uint32_t i = 0; i < ILI9341_SCREEN_WIDTH*ILI9341_SCREEN_HEIGHT*2/BURST_MAX_SIZE; i++)
-		{			
-				for(uint32_t k = 0; k< BURST_MAX_SIZE; k++)
-				{
-					Temp_small_buffer[k]	= Image_Array[counter+k];		
-				}						
-				HAL_SPI_Transmit(&HSPI_INSTANCE, (unsigned char*)Temp_small_buffer, BURST_MAX_SIZE, 10);
-				counter += BURST_MAX_SIZE;			
-		}
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 	}
 	else if(Orientation == SCREEN_HORIZONTAL_2)
 	{
 		ILI9341_Set_Rotation(SCREEN_HORIZONTAL_2);
 		ILI9341_Set_Address(0,0,ILI9341_SCREEN_WIDTH,ILI9341_SCREEN_HEIGHT);
-			
-		HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-		
-		unsigned char Temp_small_buffer[BURST_MAX_SIZE];
-		uint32_t counter = 0;
-		for(uint32_t i = 0; i < ILI9341_SCREEN_WIDTH*ILI9341_SCREEN_HEIGHT*2/BURST_MAX_SIZE; i++)
-		{			
-				for(uint32_t k = 0; k< BURST_MAX_SIZE; k++)
-				{
-					Temp_small_buffer[k]	= Image_Array[counter+k];		
-				}						
-				HAL_SPI_Transmit(&HSPI_INSTANCE, (unsigned char*)Temp_small_buffer, BURST_MAX_SIZE, 10);
-				counter += BURST_MAX_SIZE;			
-		}
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 	}
 	else if(Orientation == SCREEN_VERTICAL_2)
 	{
-		ILI9341_Set_Rotation(SCREEN_VERTICAL_2);
-		ILI9341_Set_Address(0,0,ILI9341_SCREEN_HEIGHT,ILI9341_SCREEN_WIDTH);
-			
-		HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-		
-		unsigned char Temp_small_buffer[BURST_MAX_SIZE];
-		uint32_t counter = 0;
-		for(uint32_t i = 0; i < ILI9341_SCREEN_WIDTH*ILI9341_SCREEN_HEIGHT*2/BURST_MAX_SIZE; i++)
-		{			
-				for(uint32_t k = 0; k< BURST_MAX_SIZE; k++)
-				{
-					Temp_small_buffer[k]	= Image_Array[counter+k];		
-				}						
-				HAL_SPI_Transmit(&HSPI_INSTANCE, (unsigned char*)Temp_small_buffer, BURST_MAX_SIZE, 10);
-				counter += BURST_MAX_SIZE;			
-		}
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
-	}
-	else if(Orientation == SCREEN_VERTICAL_1)
-	{
-		ILI9341_Set_Rotation(SCREEN_VERTICAL_1);
-		ILI9341_Set_Address(0,0,ILI9341_SCREEN_HEIGHT,ILI9341_SCREEN_WIDTH);
-			
-		HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-		
-		unsigned char Temp_small_buffer[BURST_MAX_SIZE];
-		uint32_t counter = 0;
-		for(uint32_t i = 0; i < ILI9341_SCREEN_WIDTH*ILI9341_SCREEN_HEIGHT*2/BURST_MAX_SIZE; i++)
-		{			
-				for(uint32_t k = 0; k< BURST_MAX_SIZE; k++)
-				{
-					Temp_small_buffer[k]	= Image_Array[counter+k];		
-				}						
-				HAL_SPI_Transmit(&HSPI_INSTANCE, (unsigned char*)Temp_small_buffer, BURST_MAX_SIZE, 10);
-				counter += BURST_MAX_SIZE;			
-		}
-		HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
-	}
+        ILI9341_Set_Rotation(SCREEN_VERTICAL_2);
+        ILI9341_Set_Address(0, 0, ILI9341_SCREEN_HEIGHT, ILI9341_SCREEN_WIDTH);
+    }
+	else if (Orientation == SCREEN_VERTICAL_1) {
+        ILI9341_Set_Rotation(SCREEN_VERTICAL_1);
+        ILI9341_Set_Address(0, 0, ILI9341_SCREEN_HEIGHT, ILI9341_SCREEN_WIDTH);
+    } else {
+        return;
+    }
+    HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
+
+    uint32_t counter = 0;
+    for (uint32_t i = 0; i < ILI9341_SCREEN_WIDTH * ILI9341_SCREEN_HEIGHT * 2 / BURST_MAX_SIZE; i++) {
+        HAL_SPI_Transmit(&HSPI_INSTANCE, (unsigned char *) &(Image_Array[counter]), BURST_MAX_SIZE, 10);
+        counter += BURST_MAX_SIZE;
+    }
+    HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 }
 
 

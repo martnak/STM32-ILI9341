@@ -160,8 +160,13 @@ void demoImage() {
     ILI9341_Draw_Text("RGB Picture", 10, 10, BLACK, 1, WHITE);
     ILI9341_Draw_Text("TIGER", 10, 20, BLACK, 1, WHITE);
     HAL_Delay(2000);
-    ILI9341_Draw_Image((const char *) snow_tiger, SCREEN_VERTICAL_2);
-    ILI9341_Set_Rotation(SCREEN_VERTICAL_1);
+    uint32_t t = HAL_GetTick();
+    for(int i = 0;i <10;i++) {
+        ILI9341_Draw_Image((const char *) snow_tiger, SCREEN_VERTICAL_2);
+    }
+    char buf[100];
+    snprintf(buf, 99, "FPS: %.2f", 10.0 / ((HAL_GetTick() - t) / 1000.0));
+    ILI9341_Draw_Text(buf, 2, 2, YELLOW, 3, DARKCYAN);
     HAL_Delay(10000);
 }
 
