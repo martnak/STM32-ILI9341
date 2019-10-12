@@ -95,10 +95,13 @@ int main(void)
   MX_SPI3_Init();
   /* USER CODE BEGIN 2 */
   ILI9341_Init();
-  /* USER CODE END 2 */
+
+    /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
   while (1)
   {
       demoAll();
@@ -106,6 +109,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
+#pragma clang diagnostic pop
   /* USER CODE END 3 */
 }
 

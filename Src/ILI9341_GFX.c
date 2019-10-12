@@ -56,7 +56,7 @@ void ILI9341_Draw_Hollow_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_
     int y = 0;
     int dx = 1;
     int dy = 1;
-    int err = dx - (Radius << 1);
+    int err = dx - (Radius << 1u);
 
     while (x >= y)
     {
@@ -79,7 +79,7 @@ void ILI9341_Draw_Hollow_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_
         {
             x--;
             dx += 2;
-            err += (-Radius << 1) + dx;
+            err += (-Radius * 2) + dx;
         }
     }
 }
@@ -90,7 +90,7 @@ void ILI9341_Draw_Filled_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_
 	
 		int x = Radius;
     int y = 0;
-    int xChange = 1 - (Radius << 1);
+    int xChange = 1 - (Radius << 1u);
     int yChange = 0;
     int radiusError = 0;
 
@@ -110,7 +110,7 @@ void ILI9341_Draw_Filled_Circle(uint16_t X, uint16_t Y, uint16_t Radius, uint16_
         y++;
         radiusError += yChange;
         yChange += 2;
-        if (((radiusError << 1) + xChange) > 0)
+        if (((radiusError * 2) + xChange) > 0)
         {
             x--;
             radiusError += xChange;
@@ -128,14 +128,10 @@ void ILI9341_Draw_Hollow_Rectangle_Coord(uint16_t X0, uint16_t Y0, uint16_t X1, 
 	uint16_t 	Y_length = 0;
 	uint8_t		Negative_X = 0;
 	uint8_t 	Negative_Y = 0;
-	float 		Calc_Negative = 0;
-	
-	Calc_Negative = X1 - X0;
-	if(Calc_Negative < 0) Negative_X = 1;
-	Calc_Negative = 0;
-	
-	Calc_Negative = Y1 - Y0;
-	if(Calc_Negative < 0) Negative_Y = 1;
+
+    if((X1 - X0 )< 0) Negative_X = 1;
+
+    if((Y1 - Y0) < 0) Negative_Y = 1;
 	
 	
 	//DRAW HORIZONTAL!
@@ -178,17 +174,13 @@ void ILI9341_Draw_Filled_Rectangle_Coord(uint16_t X0, uint16_t Y0, uint16_t X1, 
 	uint16_t 	Y_length = 0;
 	uint8_t		Negative_X = 0;
 	uint8_t 	Negative_Y = 0;
-	int32_t 	Calc_Negative = 0;
-	
+
 	uint16_t X0_true = 0;
 	uint16_t Y0_true = 0;
 	
-	Calc_Negative = X1 - X0;
-	if(Calc_Negative < 0) Negative_X = 1;
-	Calc_Negative = 0;
-	
-	Calc_Negative = Y1 - Y0;
-	if(Calc_Negative < 0) Negative_Y = 1;
+	if((X1 - X0) < 0) Negative_X = 1;
+
+	if((Y1 - Y0) < 0) Negative_Y = 1;
 	
 	
 	//DRAW HORIZONTAL!
@@ -228,7 +220,6 @@ void ILI9341_Draw_Char(char Character, uint8_t X, uint8_t Y, uint16_t Colour, ui
 		function_char = Character;
 		
     if (function_char < ' ') {
-        Character = 0;
     } else {
         function_char -= 32;
 		}
@@ -243,7 +234,7 @@ void ILI9341_Draw_Char(char Character, uint8_t X, uint8_t Y, uint16_t Colour, ui
 		ILI9341_Draw_Rectangle(X, Y, CHAR_WIDTH*Size, CHAR_HEIGHT*Size, Background_Colour);
     for (j=0; j<CHAR_WIDTH; j++) {
         for (i=0; i<CHAR_HEIGHT; i++) {
-            if (temp[j] & (1<<i)) {			
+            if (temp[j] & (1u<<i)) {
 							if(Size == 1)
 							{
               ILI9341_Draw_Pixel(X+j, Y+i, Colour);

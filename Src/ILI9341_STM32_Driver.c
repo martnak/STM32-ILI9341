@@ -121,15 +121,15 @@ HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 void ILI9341_Set_Address(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2)
 {
 ILI9341_Write_Command(0x2A);
-ILI9341_Write_Data(X1>>8);
+ILI9341_Write_Data(X1>>8u);
 ILI9341_Write_Data(X1);
-ILI9341_Write_Data(X2>>8);
+ILI9341_Write_Data(X2>>8u);
 ILI9341_Write_Data(X2);
 
 ILI9341_Write_Command(0x2B);
-ILI9341_Write_Data(Y1>>8);
+ILI9341_Write_Data(Y1>>8u);
 ILI9341_Write_Data(Y1);
-ILI9341_Write_Data(Y2>>8);
+ILI9341_Write_Data(Y2>>8u);
 ILI9341_Write_Data(Y2);
 
 ILI9341_Write_Command(0x2C);
@@ -157,22 +157,22 @@ HAL_Delay(1);
 switch(screen_rotation) 
 	{
 		case SCREEN_VERTICAL_1:
-			ILI9341_Write_Data(0x40|0x08);
+			ILI9341_Write_Data(0x40u|0x08u);
 			LCD_WIDTH = 240;
 			LCD_HEIGHT = 320;
 			break;
 		case SCREEN_HORIZONTAL_1:
-			ILI9341_Write_Data(0x20|0x08);
+			ILI9341_Write_Data(0x20u|0x08u);
 			LCD_WIDTH  = 320;
 			LCD_HEIGHT = 240;
 			break;
 		case SCREEN_VERTICAL_2:
-			ILI9341_Write_Data(0x80|0x08);
+			ILI9341_Write_Data(0x80u|0x08u);
 			LCD_WIDTH  = 240;
 			LCD_HEIGHT = 320;
 			break;
 		case SCREEN_HORIZONTAL_2:
-			ILI9341_Write_Data(0x40|0x80|0x20|0x08);
+			ILI9341_Write_Data(0x40u|0x80u|0x20u|0x08u);
 			LCD_WIDTH  = 320;
 			LCD_HEIGHT = 240;
 			break;
@@ -332,7 +332,7 @@ ILI9341_Set_Rotation(SCREEN_VERTICAL_1);
 void ILI9341_Draw_Colour(uint16_t Colour)
 {
 //SENDS COLOUR
-unsigned char TempBuffer[2] = {Colour>>8, Colour};	
+unsigned char TempBuffer[2] = {Colour>>8u, Colour};
 HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
 HAL_SPI_Transmit(&HSPI_INSTANCE, TempBuffer, 2, 1);	
@@ -357,7 +357,7 @@ else
 HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
 
-unsigned char chifted = 	Colour>>8;;
+unsigned char chifted = 	Colour>>8u;
 unsigned char burst_buffer[Buffer_Size];
 for(uint32_t j = 0; j < Buffer_Size; j+=2)
 	{
@@ -410,7 +410,7 @@ HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
 //XDATA
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-unsigned char Temp_Buffer[4] = {X>>8,X, (X+1)>>8, (X+1)};
+unsigned char Temp_Buffer[4] = {X>>8u,X, (X+1u)>>8u, (X+1)};
 HAL_SPI_Transmit(&HSPI_INSTANCE, Temp_Buffer, 4, 1);
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
@@ -423,7 +423,7 @@ HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
 //YDATA
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-unsigned char Temp_Buffer1[4] = {Y>>8,Y, (Y+1)>>8, (Y+1)};
+unsigned char Temp_Buffer1[4] = {Y>>8u,Y, (Y+1u)>>8u, (Y+1)};
 HAL_SPI_Transmit(&HSPI_INSTANCE, Temp_Buffer1, 4, 1);
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
@@ -436,7 +436,7 @@ HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 
 //COLOUR	
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-unsigned char Temp_Buffer2[2] = {Colour>>8, Colour};
+unsigned char Temp_Buffer2[2] = {Colour>>8u, Colour};
 HAL_SPI_Transmit(&HSPI_INSTANCE, Temp_Buffer2, 2, 1);
 HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 	
